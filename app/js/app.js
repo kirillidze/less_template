@@ -1,6 +1,4 @@
-"use strict";
+import "./first_module";
 
-import "./first_module.js";
-
-let info = document.getElementById("info");
-info.style.color = "red";
+const info = document.getElementById("info");
+info.style.color = "orange";

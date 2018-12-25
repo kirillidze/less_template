@@ -1,4 +1,3 @@
-"use strict";
-import "./second_module.js";
+import "./second_module";
 
 console.log("I'm first module!!!");

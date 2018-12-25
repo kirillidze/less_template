@@ -90,13 +90,11 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _first_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _first_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 
 
-
-
-let info = document.getElementById("info");
-info.style.color = "red";
+const info = document.getElementById("info");
+info.style.color = "orange";
 
 
 /***/ }),
@@ -105,9 +103,8 @@ info.style.color = "red";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _second_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var _second_module_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_second_module_js__WEBPACK_IMPORTED_MODULE_0__);
-
+/* harmony import */ var _second_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _second_module__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_second_module__WEBPACK_IMPORTED_MODULE_0__);
 
 
 console.log("I'm first module!!!");
@@ -115,10 +112,7 @@ console.log("I'm first module!!!");
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
+/***/ (function(module, exports) {
 
 console.log("I'm second module!!!");
 
