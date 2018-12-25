@@ -1,8 +1,8 @@
 {
   "name": "less_template",
   "version": "1.0.0",
-  "description": "test",
-  "main": "index.js",
+  "description": "frontend",
+  "main": "app.js",
   "scripts": {
     "start": "gulp dev",
     "build": "gulp build"
