@@ -24,6 +24,8 @@
     "gulp-less": "^4.0.1",
     "gulp-rename": "^1.4.0",
     "gulp-uglifyjs": "^0.6.2",
-    "imagemin-pngquant": "^6.0.0"
+    "imagemin-pngquant": "^6.0.0",
+    "webpack": "^4.28.2",
+    "webpack-stream": "^5.2.1"
   }
 }

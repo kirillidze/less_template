@@ -10,7 +10,10 @@ let gulp = require("gulp"),
     autoprefixer = require("gulp-autoprefixer"),
     del = require("del"),
     imagemin = require("gulp-imagemin"),
-    pngquant = require("imagemin-pngquant");
+    pngquant = require("imagemin-pngquant"),
+    webpack = require("webpack"),
+    webpackStream = require("webpack-stream"),
+    webpackConfig = require("./webpack.config.js");
 
 gulp.task("less", function() {
     return gulp
@@ -34,11 +37,18 @@ gulp.task("code", function() {
 });
 
 gulp.task("scripts", function() {
-    return gulp.src("app/js/*.js").pipe(
-        browserSync.reload({
-            stream: true
-        })
-    );
+    return gulp
+        .src("app/js/app.js")
+        .pipe(
+            webpackStream(webpackConfig),
+            webpack
+        )
+        .pipe(gulp.dest("./app/js"))
+        .pipe(
+            browserSync.reload({
+                stream: true
+            })
+        );
 });
 
 gulp.task("browser-sync", function() {
@@ -53,10 +63,10 @@ gulp.task("browser-sync", function() {
 gulp.task("watch", function() {
     gulp.watch("app/less/*.less", gulp.parallel("less"));
     gulp.watch("app/*.html", gulp.parallel("code"));
-    gulp.watch("app/js/*.js", gulp.parallel("scripts"));
+    gulp.watch(["app/js/*.js", "!app/js/bundle.js"], gulp.parallel("scripts"));
 });
 
-gulp.task("dev", gulp.parallel("watch", "browser-sync", "less"));
+gulp.task("dev", gulp.parallel("scripts", "watch", "browser-sync", "less"));
 
 function clean() {
     return del("dist");
@@ -85,7 +95,7 @@ function buildCss() {
 
 function buildJs() {
     return gulp
-        .src("app/js/*.js")
+        .src("app/js/bundle.js")
         .pipe(
             babel({
                 presets: ["@babel/env"]
