@@ -1,5 +1,26 @@
-/* eslint-disable arrow-body-style */
-const gulp = require("gulp"),
+https://code.visualstudio.com/docs/languages/css
+
+npm i gulp-cli -g
+npm i -g gulp
+npm i -g node-sass less
+cd project
+npm init
+npm i gulp -D
+npm i gulp-less -D
+npm i browser-sync -D
+npm i --save-dev gulp-babel @babel/core @babel/preset-env
+npm i gulp-concat -D //опционально
+npm i gulp-uglifyjs -D
+npm i gulp-cssnano -D
+npm i gulp-html-minifier -D
+npm i gulp-rename -D //опционально
+npm i --save-dev gulp-autoprefixer
+npm i gulp-imagemin imagemin-pngquant -D
+npm i del -D
+
+создать в корне проекта файл gulpfile.js:
+
+let gulp = require("gulp"),
     less = require("gulp-less"),
     browserSync = require("browser-sync"),
     babel = require("gulp-babel"),
@@ -11,42 +32,14 @@ const gulp = require("gulp"),
     autoprefixer = require("gulp-autoprefixer"),
     del = require("del"),
     imagemin = require("gulp-imagemin"),
-    pngquant = require("imagemin-pngquant"),
-    webpack = require("webpack"),
-    webpackStream = require("webpack-stream"),
-    webpackConfig = require("./webpack.config.js");
+    pngquant = require("imagemin-pngquant");
 
-gulp.task("less", () => {
+gulp.task("less", function() {
     return gulp
         .src(["app/less/*.less", "!app/less/_*.less"])
         .pipe(less())
-        .pipe(gulp.dest("app/css"));
-});
-
-gulp.task("css", () => {
-    return gulp.src("app/css/*.css").pipe(
-        browserSync.reload({
-            stream: true
-        })
-    );
-});
-
-gulp.task("code", () => {
-    return gulp.src("app/*.html").pipe(
-        browserSync.reload({
-            stream: true
-        })
-    );
-});
-
-gulp.task("scripts", () => {
-    return gulp
-        .src("app/js/app.js")
-        .pipe(
-            webpackStream(webpackConfig),
-            webpack
-        )
-        .pipe(gulp.dest("./app/js"))
+        .pipe(autoprefixer(["last 15 versions", ">1%", "ie 7", "ie 8"], { cascade: true }))
+        .pipe(gulp.dest("app/css"))
         .pipe(
             browserSync.reload({
                 stream: true
@@ -54,8 +47,24 @@ gulp.task("scripts", () => {
         );
 });
 
-gulp.task("browser-sync", () => {
-    return browserSync({
+gulp.task("code", function() {
+    return gulp.src("app/*.html").pipe(
+        browserSync.reload({
+            stream: true
+        })
+    );
+});
+
+gulp.task("scripts", function() {
+    return gulp.src("app/js/*.js").pipe(
+        browserSync.reload({
+            stream: true
+        })
+    );
+});
+
+gulp.task("browser-sync", function() {
+    browserSync({
         server: {
             baseDir: "app"
         },
@@ -63,14 +72,13 @@ gulp.task("browser-sync", () => {
     });
 });
 
-gulp.task("watch", () => {
+gulp.task("watch", function() {
     gulp.watch("app/less/*.less", gulp.parallel("less"));
-    gulp.watch("app/css/*.css", gulp.parallel("css"));
     gulp.watch("app/*.html", gulp.parallel("code"));
-    gulp.watch(["app/js/*.js", "!app/js/bundle.js"], gulp.parallel("scripts"));
+    gulp.watch("app/js/*.js", gulp.parallel("scripts"));
 });
 
-gulp.task("dev", gulp.parallel("scripts", "watch", "browser-sync", "less"));
+gulp.task("dev", gulp.parallel("watch", "browser-sync", "less"));
 
 function clean() {
     return del("dist");
@@ -93,14 +101,13 @@ function img() {
 function buildCss() {
     return gulp
         .src("app/css/*.css")
-        .pipe(autoprefixer(["last 15 versions", ">1%", "ie 7", "ie 8"], { cascade: true }))
         .pipe(cssnano())
         .pipe(gulp.dest("./dist/css"));
 }
 
 function buildJs() {
     return gulp
-        .src("app/js/bundle.js")
+        .src("app/js/*.js")
         .pipe(
             babel({
                 presets: ["@babel/env"]
@@ -121,5 +128,10 @@ function buildFonts() {
     return gulp.src("app/fonts/**/*").pipe(gulp.dest("dist/fonts"));
 }
 
-const build = gulp.series(clean, gulp.parallel(buildCss, buildJs, buildHTML, buildFonts, img));
+var build = gulp.series(clean, gulp.parallel(buildCss, buildJs, buildHTML, buildFonts, img));
 gulp.task("build", build);
+
+
+команды:
+gulp dev - разработка
+gulp build - сборка продакшн

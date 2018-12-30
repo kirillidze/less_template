@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const info = document.getElementById("info");
-info.style.color = "orange";
+info.style.color = "green";
 
 
 /***/ }),

@@ -1,4 +1,4 @@
 import "./first_module";
 
 const info = document.getElementById("info");
-info.style.color = "orange";
+info.style.color = "green";

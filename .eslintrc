@@ -7,6 +7,9 @@
     "extends": ["airbnb/base", "jquery"],
     "rules": {
         "linebreak-style": 0,
-        "space-in-parens": ["error", "never"]
+        "space-in-parens": ["error", "never"],
+        "one-var": ["error", "consecutive"],
+        "indent": ["error", 4],
+        "array-bracket-spacing": ["error", "never"]
       }
 }
