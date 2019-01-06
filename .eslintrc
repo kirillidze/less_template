@@ -2,7 +2,7 @@
     "env": { 
         "browser": true,
         "node": true,
-        "jquery": true 
+        "jquery": true
     },
     "extends": ["airbnb/base", "jquery"],
     "rules": {
@@ -10,6 +10,7 @@
         "space-in-parens": ["error", "never"],
         "one-var": ["error", "consecutive"],
         "indent": ["error", 4],
-        "array-bracket-spacing": ["error", "never"]
+        "array-bracket-spacing": ["error", "never"],
+        "quotes": ["error", "single"]
       }
 }
